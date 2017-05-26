@@ -1,0 +1,68 @@
+---
+title: "Analytics with R"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Installation
+
+```{r}
+install.packages('gdata')
+install.packages('dplyr')
+library(gdata)
+library(dplyr)
+```
+
+
+Check and set your working directory
+
+```{r}
+getwd()
+setwd("Users/hollyemblem/Projects/analysis - with - r")
+```
+
+Read in your Analytics file
+```{r}
+analytics <- read.csv("analytics.csv",stringsAsFactors = FALSE,strip.white=TRUE)
+View(analytics)
+```
+
+We use strings as factors = FALSE, as our first column are not factor variables. To find out more about why we should set this, see here: https://simplystatistics.org/2015/07/24/stringsasfactors-an-unauthorized-biography/
+
+Now we can update our final column to contain 'Total' on the last row:
+
+```{r}
+analytics[8,1] <- "Total"
+```
+
+
+From here, we can easily calculate the mean and median of, say, sessions:
+
+```{r}
+analytics %>% filter(Day.Index !="Total", (!is.na(Sessions))) %>% summarise(mean_visits =(mean(as.numeric(Sessions))))
+```
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
