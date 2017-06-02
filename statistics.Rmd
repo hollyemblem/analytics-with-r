@@ -47,6 +47,14 @@ analytics %>% filter(Day.Index !="Total", (!is.na(Sessions))) %>% summarise(mean
 ```
 
 
+We can also easily create a bar chart:
+
+```{r}
+ggplot(data=subset(analytics,Day.Index != "Total"),aes(x=Day.Index, weight=Users)) +  geom_bar()
+```
+
+
+
 ## R Markdown
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
